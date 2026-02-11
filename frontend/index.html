@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description"
+    content="Fish Dice is an undersea-themed timed board game with heart challenges, levels, leaderboard, and profile customization." />
+  <title>Fish Dice</title>
+
+  <link rel="icon" type="image/png" href="assets/logo/fish_dice.png" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="theme-abyss ocean-bg">
+
+  <section id="page-home" class="page-section main-page">
+    <main class="hero-card panel">
+      <a href="#" class="home-logout-btn" id="homeLogoutBtn">🚪 Logout</a>
+      <img class="logo" src="assets/logo/fish_dice.png" alt="Fish Dice logo" />
+      <a class="wood-btn" href="#levels">Play</a>
+      <a class="wood-btn ghost" href="#instructions">Instructions</a>
+      <a class="wood-btn ghost" href="#leaderboard">Leaderboard</a>
+      <a class="wood-btn ghost" href="#settings" id="homeSettingsBtn">Settings</a>
+    </main>
+  </section>
+  
+
+  
+  <section id="page-login" class="page-section">
+    <main class="main auth-wrapper">
+      <h2 class="auth-title">Login</h2>
+      <form id="loginForm" class="auth-form">
+        <div class="auth-field">
+          <label for="email" class="auth-label">Email or Username</label>
+          <input type="text" id="email" placeholder="Email or username" autocomplete="username" required>
+        </div>
+
+        <div class="auth-field">
+          <label for="password" class="auth-label">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+        </div>
+
+        <div class="auth-row auth-row--between">
+          <label class="auth-checkbox">
+            <input type="checkbox" id="rememberMe">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="auth-link auth-link-inline" id="forgotLink">Forgot password?</a>
+        </div>
+
+        <button class="auth-btn" type="submit">Login</button>
+
+        <div class="auth-secondary">
+          <span>Don’t have an account?</span>
+          <a href="#" class="auth-link" onclick="navigateTo('signup'); return false;">Create an account</a>
+        </div>
+      </form>
+
+      <div id="resetModal" class="modal hidden">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3 id="resetModalTitle">Reset Password</h3>
+            <button class="btn ghost" id="resetClose" aria-label="Close">✕</button>
+          </div>
+          <div class="modal-body">
+            <div id="step1">
+              <div class="auth-field">
+                <label for="resetEmail" class="auth-label">Email</label>
+                <input type="email" id="resetEmail" placeholder="Enter your email" required>
+              </div>
+              <div class="auth-field">
+                <label for="resetPassword" class="auth-label">New Password</label>
+                <input type="password" id="resetPassword" placeholder="New password" autocomplete="new-password" required>
+              </div>
+              <div class="auth-field">
+                <label for="resetConfirm" class="auth-label">Confirm Password</label>
+                <input type="password" id="resetConfirm" placeholder="Confirm password" autocomplete="new-password" required>
+              </div>
+              <button id="sendOtpBtn" class="auth-btn">Send OTP</button>
+            </div>
+            <div id="step2" class="hidden">
+              <div class="auth-field">
+                <label for="otpInput" class="auth-label">OTP Code</label>
+                <input type="text" id="otpInput" placeholder="Enter OTP" required>
+              </div>
+              <button id="verifyOtpBtn" class="auth-btn">Verify & Change Password</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </section>
+ 
+  
+  <section id="page-signup" class="page-section">
+    <main class="main auth-wrapper">
+      <h2 class="auth-title">Create Account</h2>
+      <form id="signupForm" class="auth-form">
+        <div class="auth-field">
+          <label for="signupUsername" class="auth-label">Username</label>
+          <input type="text" id="signupUsername" placeholder="Username" required>
+        </div>
+        
+        <div class="auth-field">
+          <label for="signupEmail" class="auth-label">Email</label>
+          <input type="email" id="signupEmail" placeholder="Email" required>
+        </div>
+        
+        <div class="auth-field">
+          <label for="signupPassword" class="auth-label">Password</label>
+          <input type="password" id="signupPassword" placeholder="Password" autocomplete="new-password" required>
+        </div>
+        
+        <div class="auth-field">
+          <label for="signupConfirmPassword" class="auth-label">Confirm Password</label>
+          <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" autocomplete="new-password" required>
+        </div>
+
+        <div class="character-section">
+          <h3 class="character-title">Choose Character</h3>
+          <div class="character-grid" id="characterGrid">
+            <div class="character-option" data-character="Shark">
+              <img src="assets/characters/shark.png" alt="Shark" class="character-avatar">
+            </div>
+            <div class="character-option" data-character="Dolphin">
+              <img src="assets/characters/dolphin.png" alt="Dolphin" class="character-avatar">
+            </div>
+            <div class="character-option" data-character="Octopus">
+              <img src="assets/characters/octopus.png" alt="Octopus" class="character-avatar">
+            </div>
+            <div class="character-option" data-character="Whale">
+              <img src="assets/characters/whale.png" alt="Whale" class="character-avatar">
+            </div>
+            <div class="character-option" data-character="Seahorse">
+              <img src="assets/characters/seahorse.png" alt="Seahorse" class="character-avatar">
+            </div>
+            <div class="character-option" data-character="Jellyfish">
+              <img src="assets/characters/jellyfish.png" alt="Jellyfish" class="character-avatar">
+            </div>
+          </div>
+          <input type="text" id="selectedCharacter" class="profile-input"
+            placeholder="Selected character will appear here" readonly>
+        </div>
+
+        <button class="auth-btn">Sign Up</button>
+        <a href="#" class="auth-link" onclick="navigateTo('login'); return false;">Already have an account?</a>
+      </form>
+    </main>
+  </section>
+
+  
+  <section id="page-levels" class="page-section">
+    <a href="#" class="back-btn levels-back-btn" onclick="navigateTo('home'); return false;">⬅ Back</a>
+    <div class="container">
+      <div class="level-wrapper">
+        <h2>Choose Your Level</h2>
+        <div class="level-card" onclick="selectLevel(1)">
+          <button class="level-btn">LEVEL 1</button>
+          <div class="circle-info">45 Circles - Beginner</div>
+          <div class="level-preview">Hearts: 8 | Snakes: 5</div>
+        </div>
+        <div class="level-card" onclick="selectLevel(2)">
+          <button class="level-btn">LEVEL 2</button>
+          <div class="circle-info">50 Circles - Intermediate</div>
+          <div class="level-preview">Hearts: 7 | Snakes: 5</div>
+        </div>
+        <div class="level-card" onclick="selectLevel(3)">
+          <button class="level-btn">LEVEL 3</button>
+          <div class="circle-info">60 Circles - Advanced</div>
+          <div class="level-preview">Hearts: 9 | Snakes: 6</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="page-instructions" class="page-section">
+    <a href="#" class="back-btn instructions-back-btn" id="instructionsBackBtn">⬅ Back</a>
+    <section class="instructions-container">
+      <h3 class="instructions-title">Game Rules - How to Play</h3>
+      <ul class="step-list">
+        <li class="step-item">
+          <span class="step-icon" aria-hidden="true">🎯</span>
+          Board has <strong>45 circles</strong>. Reach 45 to win!
+        </li>
+        <li class="step-item">
+          <span class="step-icon" aria-hidden="true">🎲</span>
+          Tap <strong>Roll</strong> to roll a die and move forward.
+        </li>
+        <li class="step-item">
+          <span class="step-icon" aria-hidden="true">❤️</span>
+          Landing on a <strong>heart</strong> opens a mini heart puzzle.
+        </li>
+        <li class="step-item">
+          <span class="step-icon" aria-hidden="true">🐍</span>
+          Landing on a <strong>snake</strong> slides you down back 2 circles.
+        </li>
+        <li class="step-item">
+          <span class="step-icon" aria-hidden="true">⏱️</span>
+          You have <strong>60 seconds</strong> total.
+        </li>
+          <li class="step-item">
+            <span class="step-icon" aria-hidden="true">👤</span>
+            <strong>Login</strong> to post scores and track your progress.
+          </li>
+      </ul>
+    </section>
+  </section>
+
+  
+  <section id="page-leaderboard" class="page-section">
+    <a href="#" class="back-btn leaderboard-back-btn" id="leaderboardBackBtn">⬅ Back</a>
+    <section class="leaderboard-page-container">
+      <h3 class="instructions-title">🏆 Leaderboard</h3>
+      <div id="leaderboardListPage" class="leaderboard-list-page"></div>
+      <div id="leaderboardPaginationPage" class="leaderboard-pagination"></div>
+    </section>
+  </section>
+
+  
+  <section id="page-settings" class="page-section">
+    <a href="#" class="back-btn settings-back-btn" id="settingsBackBtn">⬅ Back</a>
+    <section class="settings-page-container">
+      <h3 class="instructions-title">⚙️ Settings</h3>
+      
+      
+      <div class="settings-section-card">
+        <div class="settings-section-header">
+          <h4 class="settings-section-title">🎵 Audio</h4>
+        </div>
+        <div class="settings-content">
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="setting-icon">🎶</span>
+              <span class="setting-text">Background Music</span>
+            </div>
+            <div class="setting-control">
+              <label class="switch">
+                <input type="checkbox" id="settingMusic">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="setting-icon">🔊</span>
+              <span class="setting-text">Music Volume</span>
+            </div>
+            <div class="setting-control volume-control">
+              <input type="range" id="settingMusicVolume" class="volume-slider" min="0" max="100" value="50">
+              <span class="volume-value" id="musicVolumeValue">50%</span>
+            </div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="setting-icon">🔔</span>
+              <span class="setting-text">Sound Effects</span>
+            </div>
+            <div class="setting-control">
+              <label class="switch">
+                <input type="checkbox" id="settingSound">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="setting-icon">📢</span>
+              <span class="setting-text">Sound Volume</span>
+            </div>
+            <div class="setting-control volume-control">
+              <input type="range" id="settingSoundVolume" class="volume-slider" min="0" max="100" value="70">
+              <span class="volume-value" id="soundVolumeValue">70%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <div class="settings-section-card">
+        <div class="settings-section-header">
+          <h4 class="settings-section-title">✨ Visual</h4>
+        </div>
+        <div class="settings-content">
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="setting-icon">⚡</span>
+              <span class="setting-text">Animation Speed</span>
+            </div>
+            <div class="setting-control">
+              <select id="settingAnimationSpeed" class="settings-select">
+                <option value="fast">Fast</option>
+                <option value="normal" selected>Normal</option>
+                <option value="slow">Slow</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="setting-icon">✨</span>
+              <span class="setting-text">Show Particles</span>
+            </div>
+            <div class="setting-control">
+              <label class="switch">
+                <input type="checkbox" id="settingShowParticles" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label">
+              <span class="setting-icon">🎬</span>
+              <span class="setting-text">Show Animations</span>
+            </div>
+            <div class="setting-control">
+              <label class="switch">
+                <input type="checkbox" id="settingShowAnimations" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  
+  <section id="page-game" class="page-section">
+    <header class="app game-header">
+    <a href="#" class="back-btn game-back-btn" id="gameBackBtn">⬅ Back</a>
+      <div class="nav-avatar" id="profileBtn">
+        <img id="avatarImg" src="assets/icons/user.png" alt="avatar">
+      </div>
+      <div class="nav">
+        <button class="nav-btn" id="instructionsBtn" type="button" aria-label="View instructions">
+          <span class="nav-btn-icon"><i class="fa-solid fa-circle-question"></i></span>
+        </button>
+        <button class="nav-btn" id="statsBtn" type="button" aria-label="View statistics">
+          <span class="nav-btn-icon"><i class="fa-solid fa-chart-line"></i></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="wrap">
+        <aside class="card panel player-panel">
+          <div class="player-panel-header">
+            <h3 class="player-panel-title">Player Info</h3>
+          </div>
+          
+          <div class="player-info-section">
+            <div class="stat-row">
+              <div class="stat-label">👤 Player</div>
+              <div class="stat-value" id="playerName">Loading...</div>
+            </div>
+            <div class="stat-row">
+              <div class="stat-label">📧 Email</div>
+              <div class="stat-value" id="playerEmail">-</div>
+            </div>
+            <div class="stat-row">
+              <div class="stat-label">⭐ Score</div>
+              <div class="stat-value highlight" id="playerScore">0</div>
+            </div>
+            <div class="stat-row">
+              <div class="stat-label">🎚️ Level</div>
+              <div class="stat-value highlight" id="playerLevel">1</div>
+            </div>
+          </div>
+
+          <div class="game-stats-section">
+            <div class="stat-row featured">
+              <div class="stat-label">⏱️ Time Left</div>
+              <div class="timer" id="timer">01:00</div>
+              <div class="timer-progress-container">
+                <div class="timer-progress timer-normal" id="timerProgressBar" style="width: 100%;"></div>
+              </div>
+            </div>
+            <div class="stat-row featured">
+              <div class="stat-label">🎯 Position</div>
+              <div class="stat-value position">
+                <strong id="pos">1</strong><span class="separator">/</span><strong id="totalCells">45</strong>
+              </div>
+            </div>
+            <div id="diceDisplay"></div>
+          </div>
+          
+          <div class="score-breakdown" id="scoreBreakdown" style="display: none;"></div>
+
+          <div class="player-actions">
+            <button id="startBtn" class="btn">▶️ Start</button>
+            <button id="rollBtn" class="btn">🎲 Roll</button>
+            <button id="resetBtn" class="btn ghost">🔄 Reset</button>
+          </div>
+        </aside>
+        <section class="board card">
+          <div class="grid" id="grid"></div>
+        </section>
+      </div>
+    </main>
+  </section>
+
+  <div id="levelCompleteModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="levelCompleteTitle">
+    <div class="modal-card level-complete-card">
+      <div class="modal-header level-complete-header">
+        <div class="celebration-icon">🎉</div>
+        <h3 id="levelCompleteTitle">Level Complete!</h3>
+      </div>
+      <div class="modal-body level-complete-body">
+        <p class="congrats-message">Congratulations! You completed the level!</p>
+        
+        <div class="score-display-container">
+          <div class="score-label">Final Score</div>
+          <div class="score-value" id="levelCompleteScore">0</div>
+        </div>
+        
+        <p class="continue-question">Do you want to continue to the next level?</p>
+        
+        <div class="level-complete-actions">
+          <button id="nextLevelBtn" class="btn btn-primary-gradient">Next Level</button>
+          <button id="stayBtn" class="btn btn-secondary">Stay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div id="profileModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+    <div class="modal-card profile-card">
+
+    
+    <div class="modal-header">
+      <span class="profile-header-icon" aria-hidden="true">👤</span>
+      <h3 id="profileModalTitle">Profile</h3>
+      <button class="btn ghost" id="closeProfile">✕</button>
+    </div>
+    <div class="modal-body">
+
+      
+      <div class="profile-avatar">
+        <img id="profileAvatar" src="assets/icons/user.png" alt="avatar">
+      </div>
+
+      
+      <div class="profile-info-section">
+
+        <div class="profile-field">
+          <label>👤 Username</label>
+          <input id="profileNameModal" type="text" readonly>
+        </div>
+
+        <div class="profile-field">
+          <label>📧 Email</label>
+          <input id="profileEmailModal" type="text" readonly>
+        </div>
+
+        <div class="profile-field">
+          <label>🏆 Total Score</label>
+          <input id="profileScoreModal" type="text" readonly>
+        </div>
+
+        <hr class="divider">
+
+        
+        <h3 class="section-title">Change Password</h3>
+
+        <div class="profile-field">
+          <label>New Password</label>
+          <input type="password" id="modalNewPassword" placeholder="Enter new password">
+        </div>
+
+        <div class="profile-field">
+          <label>Confirm Password</label>
+          <input type="password" id="modalConfirmPassword" placeholder="Confirm new password">
+        </div>
+
+        <button id="modalChangePasswordBtn" class="auth-btn">Update Password</button>
+
+      </div>
+      <div id="otpBox" style="display:none; margin-top: 10px;">
+        <label>Enter OTP</label>
+        <input type="text" id="modalOtpInput" placeholder="Enter OTP">
+        <button id="modalVerifyOtpBtn" class="auth-btn">Verify OTP</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+  
+  <div id="instructionsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="instructionsModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="instructionsModalTitle">Game Rules - How to Play</h3>
+        <button class="btn ghost" id="closeInstructions" aria-label="Close instructions">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="step-list">
+          <li class="step-item">
+            <span class="step-icon" aria-hidden="true">🎯</span>
+            Board has <strong>45 circles</strong>. Reach 45 to win!
+          </li>
+          <li class="step-item">
+            <span class="step-icon" aria-hidden="true">🎲</span>
+            Tap <strong>Roll</strong> to roll a die and move forward.
+          </li>
+          <li class="step-item">
+            <span class="step-icon" aria-hidden="true">❤️</span>
+            Landing on a <strong>heart</strong> opens a mini heart puzzle.
+          </li>
+          <li class="step-item">
+            <span class="step-icon" aria-hidden="true">🐍</span>
+            Landing on a <strong>snake</strong> slides you down back 2 circles.
+          </li>
+          <li class="step-item">
+            <span class="step-icon" aria-hidden="true">⏱️</span>
+            You have <strong>60 seconds</strong> total.
+          </li>
+          <li class="step-item">
+            <span class="step-icon" aria-hidden="true">👤</span>
+            <strong>Login</strong> to post scores and track your progress.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="leaderboardModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="leaderboardModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="leaderboardModalTitle">🏆 Leaderboard</h3>
+        <button class="btn ghost" id="closeLeaderboard" aria-label="Close leaderboard">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="leaderboardList" class="leaderboard-list"></div>
+        <div id="leaderboardPagination" class="leaderboard-pagination"></div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div id="heartChallengeModal" class="modal" role="dialog" aria-modal="true"
+    aria-labelledby="heartChallengeModalTitle">
+    <div class="modal-card heart">
+      <div class="modal-header">
+        <h3 id="heartChallengeModalTitle">Heart Challenge</h3>
+        <button class="btn ghost" id="closeHeartChallenge" aria-label="Close heart challenge">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>Count the hearts and enter the number:</p>
+        <img id="heartChallengeImage" src="" alt="Heart puzzle image">
+        <input id="heartAnswer" type="number" min="0" placeholder="Enter hearts" autocomplete="off">
+        <div class="row">
+          <div class="stat">Time left:</div>
+          <div id="heartTimer">10</div>
+        </div>
+        <button class="btn" id="submitHeartAnswer" type="button">Submit</button>
+        <button class="btn" id="skipHeartChallenge" type="button">Skip</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-sound-floating" id="btn-sound-login" type="button" aria-label="Toggle sound">🔈</button>
+
+  
+  <div id="toast-container" class="toast-container"></div>
+
+  
+  <div id="settingsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+    <div class="modal-card settings-modal-card">
+      <div class="modal-header">
+        <h3 id="settingsModalTitle">⚙️ Settings</h3>
+        <button class="btn ghost" id="closeSettings" aria-label="Close settings">✕</button>
+      </div>
+      <div class="modal-body settings-modal-body">
+        
+        <div class="settings-section-card">
+          <div class="settings-section-header">
+            <h4 class="settings-section-title">🎵 Audio</h4>
+          </div>
+          <div class="settings-content">
+            <div class="setting-item">
+              <div class="setting-label">
+                <span class="setting-icon">🎶</span>
+                <span class="setting-text">Background Music</span>
+              </div>
+              <div class="setting-control">
+                <label class="switch">
+                  <input type="checkbox" id="settingMusic">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-label">
+                <span class="setting-icon">🔊</span>
+                <span class="setting-text">Music Volume</span>
+              </div>
+              <div class="setting-control volume-control">
+                <input type="range" id="settingMusicVolume" class="volume-slider" min="0" max="100" value="50">
+                <span class="volume-value" id="musicVolumeValue">50%</span>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-label">
+                <span class="setting-icon">🔔</span>
+                <span class="setting-text">Sound Effects</span>
+              </div>
+              <div class="setting-control">
+                <label class="switch">
+                  <input type="checkbox" id="settingSound">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-label">
+                <span class="setting-icon">📢</span>
+                <span class="setting-text">Sound Volume</span>
+              </div>
+              <div class="setting-control volume-control">
+                <input type="range" id="settingSoundVolume" class="volume-slider" min="0" max="100" value="70">
+                <span class="volume-value" id="soundVolumeValue">70%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="settings-section-card">
+          <div class="settings-section-header">
+            <h4 class="settings-section-title">✨ Visual</h4>
+          </div>
+          <div class="settings-content">
+            <div class="setting-item">
+              <div class="setting-label">
+                <span class="setting-icon">⚡</span>
+                <span class="setting-text">Animation Speed</span>
+              </div>
+              <div class="setting-control">
+                <select id="settingAnimationSpeed" class="settings-select">
+                  <option value="fast">Fast</option>
+                  <option value="normal" selected>Normal</option>
+                  <option value="slow">Slow</option>
+                </select>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-label">
+                <span class="setting-icon">✨</span>
+                <span class="setting-text">Show Particles</span>
+              </div>
+              <div class="setting-control">
+                <label class="switch">
+                  <input type="checkbox" id="settingShowParticles" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+            <div class="setting-item">
+              <div class="setting-label">
+                <span class="setting-icon">🎬</span>
+                <span class="setting-text">Show Animations</span>
+              </div>
+              <div class="setting-control">
+                <label class="switch">
+                  <input type="checkbox" id="settingShowAnimations" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div id="statisticsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="statisticsModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="statisticsModalTitle">📊 Statistics</h3>
+        <button class="btn ghost" id="closeStatistics" aria-label="Close statistics">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="statisticsContent">
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading statistics...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/utils/toast.js"></script>
+  <script src="js/utils/loading.js"></script>
+  <script src="js/utils/storage.js"></script>
+  <script src="js/utils/settings.js"></script>
+  <script src="js/utils/stats.js"></script>
+  <script src="js/settings-handler.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/heartapi.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/backSoundApi.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/time.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  
+
+</body>
+
+</html>

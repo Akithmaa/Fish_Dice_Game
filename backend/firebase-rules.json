@@ -1,0 +1,20 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      ".indexOn": ["email", "score", "username"],
+      "$uid": {
+        ".read": true,
+        ".write": false
+      }
+    },
+    "otp": {
+      "$otpId": {
+        ".read": false,
+        ".write": false
+      }
+    }
+  }
+}
+
